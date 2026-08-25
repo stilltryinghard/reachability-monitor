@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     
     mongo_url: str = "mongodb://localhost:27017"
     db_name: str = "reachability"
+    rabbitmq_url: str = "amqp://guest:guest@localhost:5672//"
     
     
 settings = Settings()
