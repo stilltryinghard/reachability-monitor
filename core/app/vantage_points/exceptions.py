@@ -1,0 +1,2 @@
+class VantagePointAlreadyExists(Exception):
+    pass

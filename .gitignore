@@ -19,4 +19,4 @@ __pycache__/
 # Docker volume данные, если вдруг локально
 mongo_data/
 
-celerybeat-schedule*
+celerybeat-schedule*celerybeat-schedule*

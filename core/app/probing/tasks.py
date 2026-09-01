@@ -2,8 +2,8 @@ import uuid
 from datetime import datetime, timezone
 
 from app.celery_app import celery
-from app.probing.checker import check_resource
 from app.measurements import repository_sync as measurements_repo
+from app.probing.checker import check_resource
 from app.resources import repository_sync as resources_repo
 
 VANTAGE_ID = "pl-vps"   # внешний пробник = польская нода
