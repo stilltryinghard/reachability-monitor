@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 
 from app.db import client
+from app.measurements.router import router as measurements_router
 from app.resources.router import router as resources_router
 from app.vantage_points.router import router as vantage_points_router
 
@@ -8,6 +9,7 @@ app = FastAPI(title="Reachability Monitor")
 
 app.include_router(resources_router)
 app.include_router(vantage_points_router)
+app.include_router(measurements_router)
 
 
 @app.get("/health")
