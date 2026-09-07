@@ -2,7 +2,7 @@ from pymongo import MongoClient
 
 from app.config import settings
 
-sync_client: MongoClient = MongoClient(settings.mongo_url)
+sync_client: MongoClient = MongoClient(settings.mongo_url, tz_aware=True)
 sync_db = sync_client[settings.db_name]
 
 #Синхронные хендлы коллекций - для Celery-задач

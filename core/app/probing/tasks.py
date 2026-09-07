@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from app.celery_app import celery
 from app.measurements import repository_sync as measurements_repo
@@ -13,7 +13,7 @@ VANTAGE_ID = "pl-vps"   # внешний пробник = польская но�
 def probe_resource(resource_id: str, url: str) -> None:
     outcome = check_resource(url)
 
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     measurement = {
         "measurement_id": str(uuid.uuid4()),
         "resource_id": resource_id,
