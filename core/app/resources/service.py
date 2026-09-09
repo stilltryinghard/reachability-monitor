@@ -1,4 +1,3 @@
-
 from app.resources import repository
 from app.resources.exceptions import ResourceAlreadyExists
 from app.resources.schemas import ResourceCreate
@@ -15,3 +14,7 @@ async def create_resource(data: ResourceCreate) -> dict:
 
 async def list_resources() -> list[dict]:
     return await repository.list_all()
+
+
+async def list_active_resources() -> list[dict]:
+    return await repository.list_active()

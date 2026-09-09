@@ -30,3 +30,8 @@ async def list_all()-> list[dict]:
 
 async def get_by_id(resource_id: str) -> dict | None:
     return await resources.find_one({"_id": resource_id})
+
+
+async def list_active() -> list[dict]:
+    cursor = resources.find({"enabled": True})
+    return await cursor.to_list(length=None)

@@ -7,15 +7,23 @@ CORE_URL = "http://localhost:8000"
 VANTAGE_ID = "ru-mts-home"
 
 
+def fetch_resources() -> list[dict]:
+    with httpx.Client() as client:
+        response = client.get(f"{CORE_URL}/resources/active", timeout=10)
+        response.raise_for_status()
+        return response.json()
+    
+    
 def send_measurement(resource_id: str, outcome: dict) -> None:
     payload = {
         "measurement_id": str(uuid.uuid4()),
-        "resource_id": resource_id, 
+        "resource_id": resource_id,
         "vantage_id": VANTAGE_ID,
         "measured_at": datetime.now(UTC).isoformat(),
         "result": outcome["result"],
         "details": outcome["details"],
     }
+    
     with httpx.Client() as client:
         response = client.post(f"{CORE_URL}/measurements", json=payload, timeout=10)
         response.raise_for_status()

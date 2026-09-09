@@ -20,3 +20,10 @@ class ResourceOut(BaseModel):
     enabled: bool
     
     model_config = {"populate_by_name": True} #разрешает заполнять поле и по имени id, и по алиасу _id.
+    
+    
+class ResourceForAgent(BaseModel):
+    id: str = Field(alias="_id")
+    url: str
+    
+    model_config = {"populate_by_name": True}

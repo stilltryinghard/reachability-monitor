@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, status
 
 from app.resources import service
 from app.resources.exceptions import ResourceAlreadyExists
-from app.resources.schemas import ResourceCreate, ResourceOut
+from app.resources.schemas import ResourceCreate, ResourceForAgent, ResourceOut
 
 router = APIRouter(prefix="/resources", tags=["resources"])
 
@@ -19,3 +19,8 @@ async def create_resource(data: ResourceCreate):
 @router.get("", response_model=list[ResourceOut])
 async def list_resources():
     return await service.list_resources()
+
+
+@router.get("/active", response_model=list[ResourceForAgent])
+async def list_active_resources():
+    return await service.list_active_resources()
