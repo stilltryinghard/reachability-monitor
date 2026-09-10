@@ -21,3 +21,4 @@ mongo_data/
 
 celerybeat-schedule*celerybeat-schedule*
 buffer.jsonl
+resources_cache.json

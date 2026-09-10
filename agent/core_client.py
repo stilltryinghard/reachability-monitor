@@ -1,17 +1,39 @@
+import json
 import uuid
 from datetime import UTC, datetime
+from pathlib import Path
 
 import httpx
+
+RESOURCES_CACHE = Path("resources_cache.json")
 
 CORE_URL = "http://localhost:8000"
 VANTAGE_ID = "ru-mts-home"
 
 
+def _save_cache(resources: list[dict]) -> None:
+    with open(RESOURCES_CACHE, "w") as f:
+        json.dump(resources, f)
+        
+
+def _load_cache() -> list[dict]:
+    if not RESOURCES_CACHE.exists():
+        return []
+    with open(RESOURCES_CACHE, "r") as f:
+        return json.load(f)
+    
+
 def fetch_resources() -> list[dict]:
-    with httpx.Client() as client:
-        response = client.get(f"{CORE_URL}/resources/active", timeout=10)
-        response.raise_for_status()
-        return response.json()
+    try:
+        with httpx.Client() as client:
+            response = client.get(f"{CORE_URL}/resources/active", timeout=10)
+            response.raise_for_status()
+            resources = response.json()
+        _save_cache(resources)
+        return resources
+    except httpx.ConnectError:
+        return _load_cache()
+            
     
     
 def build_payload(resource_id: str, outcome: dict) -> dict:
