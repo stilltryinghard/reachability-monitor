@@ -20,3 +20,4 @@ __pycache__/
 mongo_data/
 
 celerybeat-schedule*celerybeat-schedule*
+buffer.jsonl
